@@ -1,6 +1,6 @@
 {
   "name": "capacitor-wechat-sdk",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "wechat sdk wrapper with capacitor ,support ios and android",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

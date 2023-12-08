@@ -49,7 +49,7 @@ public class WechatSDKPlugin extends Plugin {
         super.load();
         pluginConfig = getConfig();
         bridge = this.getBridge();
-        registerWeChat();
+        // registerWeChat();
     }
 
 
@@ -74,7 +74,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void isInstalled(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         if (wxApi.isWXAppInstalled()) {
             call.resolve();
         } else {
@@ -91,7 +93,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void pay(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         bridge = this.getBridge();
         //        requestPermissions();
         PayReq req = new PayReq(); // appId
@@ -126,6 +130,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void shareText(PluginCall call) {
+        if (wxApi == null) {
+            registerWeChat();
+        }
         Integer scene = call.getInt("scene");
         String text = call.getString("text");
         //初始化一个 WXTextObject 对象，填写分享的文本内容
@@ -166,7 +173,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void shareLink(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         // String webpageUrl = call.getString("url");
         // String title = call.getString("title");
         // String description = call.getString("description");
@@ -222,6 +231,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void shareImage(PluginCall call) {
+        if (wxApi == null) {
+            registerWeChat();
+        }
         String image = call.getString("image");
         //Integer scene = call.getInt("scene");
         if (image == null || image.length() <= 0) {
@@ -267,7 +279,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void shareMiniProgram(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         // String webpageUrl = call.getString("webpageUrl");
         // String userName = call.getString("userName");
         // String path = call.getString("path");
@@ -323,7 +337,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void launchMiniProgram(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
         req.userName = call.getString("userName"); // 填小程序原始id
         req.path = call.getString("path");   //拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
@@ -350,7 +366,9 @@ public class WechatSDKPlugin extends Plugin {
      */
     @PluginMethod
     public void sendAuthRequest(PluginCall call) {
-
+        if (wxApi == null) {
+            registerWeChat();
+        }
         final SendAuth.Req req = new SendAuth.Req();
         req.scope = call.getString("scope");
         req.state = call.getString("state");
@@ -372,6 +390,9 @@ public class WechatSDKPlugin extends Plugin {
 
     @PluginMethod
     public void wxOpenCustomerServiceChat(PluginCall call) {
+        if (wxApi == null) {
+            registerWeChat();
+        }
         // 判断当前版本是否支持拉起客服会话
         if (wxApi.getWXAppSupportAPI() >= Build.SUPPORT_OPEN_CUSTOMER_SERVICE_CHAT) {
             WXOpenCustomerServiceChat.Req req = new WXOpenCustomerServiceChat.Req();
